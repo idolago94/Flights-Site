@@ -1,0 +1,111 @@
+var express = require('express');
+var router = express.Router();
+var mysql = require('mysql');
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.get('/db', function(req, res, next) {
+  var connection= mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+  });
+
+  connection.connect(function(err){
+    if(err) throw err;
+    console.log('connected');
+      connection.query("CREATE SCHEMA IF NOT EXISTS `flightsitedb`", function (err, result, fields) {
+        if (err) throw err;
+        res.redirect('/userstable');
+      });
+  }); 
+});
+
+router.get('/userstable', function(req, res, next) {
+  
+  var con = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'flightsitedb'
+});
+    // if(err) throw err;
+    console.log('connected');
+    var sql=`
+    CREATE TABLE IF NOT EXISTS flightsitedb.users (
+      id INT NOT NULL AUTO_INCREMENT,
+      username VARCHAR(45) NOT NULL,
+      name VARCHAR(45) NOT NULL,
+      password VARCHAR(99) NOT NULL,
+      status VARCHAR(45) NOT NULL DEFAULT 'user',
+      vacations VARCHAR(9999) NOT NULL DEFAULT '[]',
+      UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+      PRIMARY KEY (id),
+      UNIQUE INDEX username_UNIQUE (username ASC) VISIBLE);
+    `;
+      con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        res.redirect('/vacationstable');
+      });
+});
+
+router.get('/vacationstable', function(req, res, next) {
+  
+  var con = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'flightsitedb'
+});
+    // if(err) throw err;
+    console.log('connected');
+    var sql=`
+    CREATE TABLE IF NOT EXISTS flightsitedb.vacations (
+      id INT NOT NULL AUTO_INCREMENT,
+      description VARCHAR(999) NULL,
+      destination VARCHAR(45) NULL,
+      picture VARCHAR(9999) NULL,
+      arrival VARCHAR(45) NULL,
+      returndate VARCHAR(45) NULL,
+      price VARCHAR(45) NULL,
+      following VARCHAR(45) NOT NULL DEFAULT '0',
+      UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+      PRIMARY KEY (id));
+    
+    `;
+      con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        // res.send('vacations table created');
+        res.redirect('/createadmin');
+      });
+});
+
+router.get('/createadmin', async function(req,res) {
+
+  var con = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'flightsitedb'
+});
+    // if(err) throw err;
+    console.log('connected');
+    var sql= `
+    INSERT IGNORE INTO flightsitedb.users 
+    (username, name, password, status) 
+    VALUES ('admin', 'admin', 'admin', 'admin');`;
+      con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        res.redirect('/');
+      });
+});
+
+
+module.exports = router;
