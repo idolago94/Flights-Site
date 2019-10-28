@@ -2,18 +2,26 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
+const database = {
+  host: 'ec2-107-20-198-176.compute-1.amazonaws.com:5432',
+  user: 'pcttbpkllgxpwh',
+  password: '22edc4cbf21dd4fa086b2fa67c949454202654ef61e38698bd27c860fef323cb',
+  port: 3306
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 router.get('/db', function(req, res, next) {
-  var connection= mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-  });
+  // var connection= mysql.createConnection({
+  //   host: 'localhost',
+  //   port: 3306,
+  //   user: 'root',
+  //   password: 'root',
+  // });
+  var connection = mysql.createConnection(database);
 
   connection.connect(function(err){
     if(err) throw err;
@@ -27,12 +35,16 @@ router.get('/db', function(req, res, next) {
 
 router.get('/userstable', function(req, res, next) {
   
-  var con = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'flightsitedb'
+//   var con = mysql.createConnection({
+//     host: 'localhost',
+//     port: 3306,
+//     user: 'root',
+//     password: 'root',
+//     database: 'flightsitedb'
+// });
+var con = mysql.createConnection({
+  ...database,
+  database: 'flightsitedb'
 });
     // if(err) throw err;
     console.log('connected');
@@ -56,12 +68,16 @@ router.get('/userstable', function(req, res, next) {
 
 router.get('/vacationstable', function(req, res, next) {
   
-  var con = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'flightsitedb'
+//   var con = mysql.createConnection({
+//     host: 'localhost',
+//     port: 3306,
+//     user: 'root',
+//     password: 'root',
+//     database: 'flightsitedb'
+// });
+var con = mysql.createConnection({
+  ...database,
+  database: 'flightsitedb'
 });
     // if(err) throw err;
     console.log('connected');
@@ -88,12 +104,16 @@ router.get('/vacationstable', function(req, res, next) {
 
 router.get('/createadmin', async function(req,res) {
 
-  var con = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'flightsitedb'
+//   var con = mysql.createConnection({
+//     host: 'localhost',
+//     port: 3306,
+//     user: 'root',
+//     password: 'root',
+//     database: 'flightsitedb'
+// });
+var con = mysql.createConnection({
+  ...database,
+  database: 'flightsitedb'
 });
     // if(err) throw err;
     console.log('connected');

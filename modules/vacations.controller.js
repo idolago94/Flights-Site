@@ -1,12 +1,23 @@
 var table_name = "vacations";
 var mysql = require('promise-mysql');
-var pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
+
+const database = {
+    host: 'ec2-107-20-198-176.compute-1.amazonaws.com:5432',
+    user: 'pcttbpkllgxpwh',
+    password: '22edc4cbf21dd4fa086b2fa67c949454202654ef61e38698bd27c860fef323cb',
+    port: 3306,
     database: 'flightsitedb',
     connectionLimit: 10
-  });
+  }
+
+// var pool = mysql.createPool({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'root',
+//     database: 'flightsitedb',
+//     connectionLimit: 10
+//   });
+var pool = mysql.createPool(database);
 
 
 module.exports = {
