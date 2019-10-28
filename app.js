@@ -34,6 +34,7 @@ io.on('connection', function(socket){
 
 server.listen(8888);
 
+console.log(process);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
