@@ -3,10 +3,10 @@ var router = express.Router();
 var mysql = require('mysql');
 
 const database = {
-  host: 'ec2-107-20-198-176.compute-1.amazonaws.com:5432',
+  host: 'ec2-107-20-198-176.compute-1.amazonaws.com',
   user: 'pcttbpkllgxpwh',
   password: '22edc4cbf21dd4fa086b2fa67c949454202654ef61e38698bd27c860fef323cb',
-  port: 3306
+  port: 5432
 }
 
 /* GET home page. */
