@@ -44,7 +44,7 @@ router.get('/userstable', function(req, res, next) {
 // });
 var con = mysql.createConnection({
   ...database,
-  database: 'flightsitedb'
+  database: 'dbs992rsl222bo'
 });
     // if(err) throw err;
     console.log('connected');

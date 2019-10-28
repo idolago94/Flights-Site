@@ -6,7 +6,7 @@ const database = {
     user: 'pcttbpkllgxpwh',
     password: '22edc4cbf21dd4fa086b2fa67c949454202654ef61e38698bd27c860fef323cb',
     port: 5432,
-    database: 'flightsitedb',
+    database: 'dbs992rsl222bo',
     connectionLimit: 10
   }
 
